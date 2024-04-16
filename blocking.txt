@@ -1,0 +1,7 @@
+anything that blocks like collage generation, color picking etc I use dask to offload those tasks
+which just creates an asyncio future and returns the result but it runs it as a worker thru dask
+this can be seen in action at https://dashboard.rival.rocks/
+
+you could however just use a reuseable thread class and run it in loop.run_in_executor which is about the same thing,
+i just prefer dask as it is used throughout every cluster
+

@@ -1,0 +1,26 @@
+With avatar history the complication is revalidating assets, and collage generation
+
+# Asset Revalidation:
+  so I upload avatars in sperts of 10, so 10 images per message, upon the upload i loop thru the message attachments and i store the user_id, avatar url, message_id, attachment index, and timestamp of the avatar change
+  upon the asset expiring it is revalidated by fetching the message and getting the attachment at the specific index and i add the database update to a task list then I asyncio.gather them without awaiting it so it is done in the background and return the updated rows for creation
+
+# Collage Generation
+  So with collage generation a lot of people that have done avatar history run to Pillow (which fucking sucks)
+  I however made a rust binding to generate the collage and all you have to do is get a list of image bytes 
+  pip install rust-chart-generation
+  here is an example of the usage I do
+  from chart_generation import create_chart
+  @cache(ttl=300,key='{images}')
+  @thread()
+  def make_chart(self, images):
+      return create_chart(images)
+
+  The cache decorator is kind of like the cashews decorator but I hash all of the keys,
+  The Thread decorator is in my tools github repo
+  I however have it forked and it offloads it to the dask cluster which can be seen at https://dashboard.rival.rocks
+
+
+  After that you just do this
+  buffer = io.BytesIO(bytes(await self.make_chart(images)))
+  buffer.seek(0)
+  file = discord.File(fp = buffer, filename = "collage.png")

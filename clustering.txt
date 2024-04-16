@@ -1,0 +1,35 @@
+# Cluster Information
+
+    # IPC
+        so with clustering the main challenge that you have to look over your options and decide which way you want to go,
+
+        I opted for a websocket server that all of the clusters connect to and made a library with events that the bot can receive and emit per cluster,
+        you can also emit events just to a specific cluster and return results of endpoints that are defined etc.
+        the main benefit of a websocket server is that the response time is usually always around 1ms
+        and it is scalable to a lot of traffic.
+
+        some people also use redis
+        which is also good but in my experience rd save errors and other shit can be a major headache
+        where as websockets are pretty straight forward and the only thing you have to deal with is serialization
+
+        some people also opted for a Quart web server
+        Which I highly recommend NOT doing, anything relating http for a task that is all local host orientated is super stupid and silly,
+        it also is generally slower then the other two options I listed, not to mention a possible security vulnerability as http is very very insecure compared to a websocket or a redis server
+
+    # Cluster Overview
+        so how I make clusters is the system environment has the amount of shards I need, and I run python launcher.py which loads the environment, does the math to split each process into an array of shard IDS, names the cluster based on which enumerate we are at
+        then it starts the python task using an asyncio loop that starts the processes, and watches them for changes or restarts etc, it is almost like pm2 except its all in c and python, it has a gui and all but u could always just 
+        make them cli arguments for each and do an asyncio subprocess shell that does pm2 start "python botfile {args}"
+        for rival in particular each cluster has a separate IP address that is on the local network interface
+    
+    # Database Overview
+        So with a database storing data while you have clusters is very very delicate, Primary keys are a necessity to ensure no duplicate data entry is going on
+        I use maria for main data that is needed for fast writes etc, and for heavy data that I don't plan on reading all of, but is also very very heavy and could result in dataloss, I use postgresql and if I lose that data its no big deal.
+        for cross cluster ratelimiting I also use redis
+
+    
+    
+
+
+
+

@@ -1,0 +1,34 @@
+# HTTP Interaction Overview
+
+    # Client
+
+        so with rival up until around a few weeks ago I was using aiohttp which is a very general practice when it comes to python discord bots
+        however upon wanting to create something better and more efficient when it comes to memory usage and speed I created rust-requests
+        which has lazy json loading, and is made in rust so it is extremely fast.
+        its around 75% faster and over 150% more memory efficient than aiohttp
+        it is public and can be installed via pypi using pip install rust-requests
+        
+        # Example usage
+        from rust_requests import Client, Request
+        client = Client()
+        request = Request("GET", "https://rival.rocks/", headers = {"User-Agent": "Rival Discord Bot"})
+        response = await (await client.send(request)).json()
+        return response.query()
+
+        the lazy loading json part example is below
+
+        from rust_requests import Client, Request
+        client = Client()
+        request = Request("GET","http://ip-api.com/json/24.48.0.1", headers = {"User-Agent": "Rival Discord Bot"})
+        response = await (await client.send(request)).json()
+        return response.query("isp")
+        
+        which only gets the value of the specified key and doesn't load the rest of the json into memory
+
+    # Security
+
+        so for security I use multiple things, proxies and I also have a cloudflare proxy worker, aswell as cloudflare warp for basic tasks
+
+        proxies are from iproyal
+        the cloudflare proxy worker is https://proxy.rival.rocks/?url=urlherelol
+        so cloudflare warp is a free service that allows you to use cloudflare as a proxy

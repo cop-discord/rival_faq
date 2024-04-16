@@ -1,0 +1,5 @@
+# User Information
+
+    So for user information rival can get everything from your bio, connections, nitro, boosting etc.
+    which is done using an oauth worker that joins a worker into your server and auto leaves servers upon inactivity
+    the same thing is used with deeplookup except those workers are separate and are already in a bunch of servers to get statistics.

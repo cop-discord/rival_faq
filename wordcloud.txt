@@ -1,0 +1,15 @@
+# Wordcloud
+
+    # Overview
+        so for wordcloud we have 2 challenging tasks that can be super slow if done incorrectly
+
+        Message Fetching and Wordcloud Generation
+
+        Starting with Message Fetching, Rival doesn't fetch any messages unless its necessary,
+        I cache messages with hashed keys of the guild_id, channel_id, and author_id with an array of message content, with a maximum of 50 messages per key
+        upon every message I store them to the redis cluster inside of an asyncio future to ensure there isn't any performance degradation.
+        when there aren't any messages cached I fetch messages and store the messages in their perspective keys so they won't need to be refetched.
+        of course everything has a TTL and is encoded so it isn't readable for the regular person if they don't have a brain, aswell as I have everything regarding my machine secured thru ssh keys, ip tables, and everything is only accessible to local host.
+
+        and for WordCloud Generation, I made a private library in rust that handles it for me but the regular wordcloud python library isn't to bad aslong as you thread it as it is extremely event loop blocking.
+        

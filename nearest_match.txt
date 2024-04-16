@@ -1,0 +1,7 @@
+So for anything that is nearest match picking, I use another python rust binding I made
+pip install fast-string-match
+with fast string match there are two functions
+closest_match_distance, and closest_match
+distance is distanced using Damerau Levenshtein's algorithm
+non distanced is just regular close match finding (which can be inaccurate at times)
+I opt for distanced over non distanced but it is your choice

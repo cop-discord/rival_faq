@@ -1,0 +1,23 @@
+# Social Media Overview
+
+    all of these services are available thru either eros.rest or api.rival.rocks which are both paid
+    eros you pay by a credit system, rival's api you just pay one time, for social media i recommend eros, for things like google etc, i recommend rivals api
+
+    so for social media integration the two main challenges are Instagram and TikTok, as both of them don't have publiclly accessible APIs so scraping or data mining is required usually using browser sessions
+
+    # Instagram
+
+        with instagram you need a few instagram accounts and to check if you are logged in already if you aren't you have to login then save cookies and revalidate them as needed
+        you also need a rotating proxy to circumvent captchas which instagram does infact throw frequently or you could just use a captcha solver which will decrease speed, running an xserver is recommended as instagram's headless detection is pretty good tbh,
+        you could also just do regular api requests and match the fingerprinting to a T but if you are lazy the ladder will work.
+        you need to cache results for things like this as rerequesting the data has a risk of suspension of the worker accounts
+
+    # TikTok
+        tiktok is the same as instagram more or less except they very frequently make changes to the backend and it can be a headache to upkeep
+
+    # Twitter
+        twitter's public api is pretty dog after the changes of 2023 where they made the free api restricted and in order to get simple things that were free before like streaming etc you have to pay 5k a month so instead we scrape using a browser session
+
+    # Google
+        now google can be even worse of a headache as they LOVE to throw captchas and the way that they cache results is based on element tags that change frequently, rival does this pretty easy and hasn't gotten captcha'd yet for image searching
+        text result searching however is a pain in the ass, you could always pay for google vision's api for it but i didn't go that route.
